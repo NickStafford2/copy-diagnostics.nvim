@@ -11,6 +11,20 @@ local M = {}
 local configuration = require("copy-diagnostics._core.configuration")
 configuration.initialize_data_if_needed()
 
+local function unique_messages(diagnostics)
+    local seen = {}
+    local result = {}
+
+    for _, d in ipairs(diagnostics) do
+        if not seen[d.message] then
+            table.insert(result, d.message)
+            seen[d.message] = true
+        end
+    end
+
+    return result
+end
+
 local function getAll()
     local diagnostics = vim.diagnostic.get(0, {})
     if not diagnostics or #diagnostics == 0 then
@@ -19,13 +33,9 @@ local function getAll()
     end
 
     -- Extract the diagnostic messages
-    local diagnostic_messages = {}
-    for _, diagnostic in ipairs(diagnostics) do
-        table.insert(diagnostic_messages, diagnostic.message)
-    end
-
+    local messages = unique_messages(diagnostics)
     -- Join the messages into a single string
-    local diagnostic_text = table.concat(diagnostic_messages, "\n")
+    local diagnostic_text = table.concat(messages, "\n")
     -- Copy to system clipboard
     vim.fn.setreg("+", diagnostic_text)
     print("Copied diagnostics to clipboard.")
