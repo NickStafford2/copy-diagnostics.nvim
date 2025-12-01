@@ -14,7 +14,12 @@ M.DATA = {}
 -- It's recommended to keep the `display` section in any case.
 --
 ---@type copy_diagnostics.Configuration
-local _DEFAULTS = { keymap = "<Leader>cy" }
+local _DEFAULTS = {
+    keymap = {
+        all = "<Leader>cy",
+        cursor = "<Leader>cY",
+    },
+}
 
 local _EXTRA_DEFAULTS = {}
 
