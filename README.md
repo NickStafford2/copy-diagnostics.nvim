@@ -1,6 +1,6 @@
 # nvim-copy-diagnostics
 
-A tiny Neovim plugin that copies diagnostics to your system clipboard.
+Neovim plugin that copies diagnostics to your system clipboard.
 
 ## What it does
 
